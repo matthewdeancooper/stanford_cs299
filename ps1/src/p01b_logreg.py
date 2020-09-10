@@ -25,12 +25,11 @@ def main(train_path, eval_path, pred_path):
 
     # Plot decision boundary on top of validation set
     fig_path = pred_path + "_fig.jpg"
-    util.plot(x_eval, y_eval, model.theta, fig_path, correction=1.0)
+    util.plot(x_eval, y_eval, model.theta, fig_path)
 
     # Use np.savetxt to save predictions on eval set to pred_path
     predictions = model.predict(x_eval)
     np.savetxt(pred_path, predictions)
-
     # *** END CODE HERE ***
 
 
