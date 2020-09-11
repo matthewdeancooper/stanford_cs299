@@ -6,7 +6,7 @@
 1. In the spirit of the Stanford honour code, full solutions are not provided in
    this repository. Rather, written problem *solutions* will contain important
    observations to sketch out the right direction - the rest is *just* algebra.
-2. Working examples of each coding problem and their respective outputs will be included. However, some coding solution make use of modified algorithms. An example of this can be seen in `stanford_cs299/ps1/src/p01b_logreg.py`
+2. Working examples of each coding problem and their respective outputs will be included. However, some coding solution make use of modified algorithms. An example of this can be seen in `stanford_cs299/ps1/src/p01b_logreg.py` below.
 
         class LogisticRegression(LinearModel):
             """Logistic regression with Newton's Method as the solver.
