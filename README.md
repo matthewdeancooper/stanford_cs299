@@ -16,9 +16,10 @@
             2) Minimise the cost J(theta) by solving J'(theta) = 0 via Newtons method
             3) Use gradient ascent to maximise the log likelihood l(theta)
             4) Use gradient descent to minimise J(theta)
-            Here, we implement 1) and calculate the Hessian and gradients accordingly.
 
+            Here, we implement 1) and calculate the Hessian and gradients accordingly.
             ...
+
             """
 
         
