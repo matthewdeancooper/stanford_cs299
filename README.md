@@ -11,10 +11,10 @@
    
    > "What I cannot create, I do not understand." - Feynman
 
-<!-- ![Feynman's blackboard](https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg) -->
 
-<p align="center">
-  <img src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg" alt="Feynman's blackboard"/>
+<p align="center"> <img
+  src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg"
+  alt="Feynman's blackboard"/> 
 </p>
 
 
