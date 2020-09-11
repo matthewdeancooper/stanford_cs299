@@ -5,7 +5,7 @@
 
 1. In the spirit of the Stanford honour code, full solutions are not provided in
    this repository. Rather, written problem *solutions* will contain important
-   observations to sketch out the right direction - the rest is just algebra.
+   observations to sketch out the right direction - the rest is *just* algebra.
 2. Working examples of each coding problem and their respective outputs will be included. However, some coding solution make use of modified algorithms. An example of this can be seen in problem ps01b:
 
    There are multiple ways to formulate this solution:  
