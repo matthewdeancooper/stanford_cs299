@@ -11,7 +11,12 @@
    
    > "What I cannot create, I do not understand." - Feynman
 
-![Feynman's blackboard](https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg)
+<!-- ![Feynman's blackboard](https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg) -->
+
+<p align="center">
+  <img src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg" alt="Feynman's blackboard"/>
+</p>
+
 
 2. Working examples of each coding problem and their respective outputs are
    included. However, some coding solution make use of modified algorithms. An
