@@ -23,6 +23,8 @@
             """
 
 3. Where GitHub size limits permit, datasets have been included in the repository. However, this is not the case for the missing `stanford_cs229/ps4/data` directory, which is readily available [here](https://github.com/s-ai-kia/CS229_ML/blob/master/PSET/2018/ps4_v5_release.zip) in a zipped format.
+4. The official setup requires Miniconda to be installed to initialise the `environment.yml` virtual environment. However, if you're not officially submitting code to this course then I recommend keeping it simple under Linux with pip, venv, and pyenv, as required.
+
 
         
             
