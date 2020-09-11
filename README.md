@@ -11,6 +11,8 @@
    
    > "What I cannot create, I do not understand." - Feynman
 
+![Feynman's blackboard](https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg)
+
 2. Working examples of each coding problem and their respective outputs are
    included. However, some coding solution make use of modified algorithms. An
    example of this can be seen in file `stanford_cs299/ps1/src/p01b_logreg.py`
