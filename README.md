@@ -4,8 +4,13 @@
 ## Explanation
 
 1. In the spirit of the Stanford honour code, full solutions are not provided in
-   this repository. Rather, *solutions* to written problem contain important
+   this repository. Rather, *solutions* to written problems contain important
    observations to sketch out the right direction - the rest is *just* algebra.
+   This is designed to serve as a blueprint rather than a walk-through. In the
+   words of Feynman:
+   
+   > What I cannot create, I do not understand.
+
 2. Working examples of each coding problem and their respective outputs are
    included. However, some coding solution make use of modified algorithms. An
    example of this can be seen in file `stanford_cs299/ps1/src/p01b_logreg.py`
