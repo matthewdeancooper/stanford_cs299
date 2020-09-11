@@ -8,7 +8,7 @@
    observations to sketch out the right direction - the rest is *just* algebra.
    This is designed to serve as a blueprint rather than a walk-through. Remember:
    
-   > What I cannot create, I do not understand. - Feynman
+   > "What I cannot create, I do not understand." - Feynman
 
 2. Working examples of each coding problem and their respective outputs are
    included. However, some coding solution make use of modified algorithms. An
