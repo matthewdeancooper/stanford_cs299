@@ -5,7 +5,7 @@
 
 1. In the spirit of the Stanford honour code, full solutions are not provided in
    this repository. Rather, *solutions* to written problems contain important
-   observations to sketch out the right direction - the rest is *just* algebra.
+   observations which sketch the right direction - the rest is *just* algebra.
    This repository is designed to serve as a blueprint cf. a walk-through.
    Remember:
    
