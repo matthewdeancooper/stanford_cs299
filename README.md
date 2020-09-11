@@ -48,5 +48,8 @@
    venv, and pyenv.
 
 
-        
+## Additional resources
+1. [YouTube CS299 lecture series recorded in Fall
+   2018](https://www.youtube.com/watch?v=jGwO_UgTS7I&list=PLoROMvodv4rMiGQp3WXShtMGgzqpfVfbU)
+2. [Course cheat-sheet](https://github.com/afshinea/stanford-cs-229-machine-learning)
             
