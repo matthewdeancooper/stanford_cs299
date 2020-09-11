@@ -6,7 +6,8 @@
 1. In the spirit of the Stanford honour code, full solutions are not provided in
    this repository. Rather, *solutions* to written problems contain important
    observations to sketch out the right direction - the rest is *just* algebra.
-   This is designed to serve as a blueprint rather than a walk-through. Remember:
+   This repository is designed to serve as a blueprint cf. a walk-through.
+   Remember:
    
    > "What I cannot create, I do not understand." - Feynman
 
