@@ -22,7 +22,7 @@
 
             """
 
-3. Where GitHub size limits permit, datasets have been included in the repository. However, this is not the case for the missing `stanford_cs229/ps4/data` directory. Which is readily available at [here](https://github.com/s-ai-kia/CS229_ML/blob/master/PSET/2018/ps4_v5_release.zip).
+3. Where GitHub size limits permit, datasets have been included in the repository. However, this is not the case for the missing `stanford_cs229/ps4/data` directory, Which is readily available [here](https://github.com/s-ai-kia/CS229_ML/blob/master/PSET/2018/ps4_v5_release.zip) in a zipped format.
 
         
             
