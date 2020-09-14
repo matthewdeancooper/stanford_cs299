@@ -1,5 +1,12 @@
 # CS229 Fall 2018 Problem Sets
 
+Problem | Code | Written
+:------------ | :-------------| :-------------
+ps0 |  |  :x: 
+ps1 | :heavy_check_mark: |  :x: 
+ps2 | :x: |  :x: 
+ps3 | :x: |  :x: 
+ps4 | :x: |  :x: 
 
 ## Explanation
 
@@ -47,14 +54,6 @@
    submitting code then I recommend keeping it simple (for Linux) with pip,
    venv, and pyenv.
 
-## Status
-Problem | Code | Written
-:------------ | :-------------| :-------------
-ps0 |  |  :x: 
-ps1 | :heavy_check_mark: |  :x: 
-ps2 | :x: |  :x: 
-ps3 | :x: |  :x: 
-ps4 | :x: |  :x: 
 
 ## Additional resources
 1. [YouTube CS299 lecture series recorded in Fall
