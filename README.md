@@ -19,10 +19,10 @@ ps4 | :x: |  :x:
    > "What I cannot create, I do not understand." - Feynman
 
 
-<img src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg"
+<p align="center"> <img
+  src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg"
   alt="Feynman's blackboard"/> 
-<!-- <p align="center"> <img -->
-<!-- </p> -->
+</p>
 
 
 2. Working examples of each coding problem and their respective outputs are
@@ -30,19 +30,21 @@ ps4 | :x: |  :x:
    example of this can be seen in file `stanford_cs299/ps1/src/p01b_logreg.py`
    below, where the problem set requested option 2).
 
-        class LogisticRegression(LinearModel):
-            """Logistic regression with Newton's Method as the solver.
+```python
+class LogisticRegression(LinearModel):
+    """Logistic regression with Newton's Method as the solver.
 
-            There are multiple ways to formulate this solution:
-            1) Maximise the log likelihood by solving l'(theta) = 0 via Newtons method
-            2) Minimise the cost J(theta) by solving J'(theta) = 0 via Newtons method
-            3) Use gradient ascent to maximise the log likelihood l(theta)
-            4) Use gradient descent to minimise J(theta)
+    There are multiple ways to formulate this solution:
+    1) Maximise the log likelihood by solving l'(theta) = 0 via Newtons method
+    2) Minimise the cost J(theta) by solving J'(theta) = 0 via Newtons method
+    3) Use gradient ascent to maximise the log likelihood l(theta)
+    4) Use gradient descent to minimise J(theta)
 
-            Here, we implement 1) and calculate the Hessian and gradients accordingly.
-            ...
+    Here, we implement 1) and calculate the Hessian and gradients accordingly.
+    ...
 
-            """
+    """
+```
 
 3. Where GitHub size limits permit, datasets have been included in the
    repository. However, this is not the case for the missing
