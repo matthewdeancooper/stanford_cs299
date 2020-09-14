@@ -1,6 +1,6 @@
 # CS229 Fall 2018 Problem Sets
 
-Problem set| Code completed | Written completed
+Problem set| Code pushed| Written pushed 
 :------------ | :-------------| :-------------
 ps0 |  |  :x: 
 ps1 | :heavy_check_mark: |  :x: 
