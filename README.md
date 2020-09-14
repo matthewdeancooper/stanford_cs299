@@ -41,6 +41,8 @@ ps4 | :x: |  :x:
       4) Use gradient descent to minimise J(theta)
 
       Here, we implement 1) and calculate the Hessian and gradients accordingly.
+      ...
+
       """
 ```
 
