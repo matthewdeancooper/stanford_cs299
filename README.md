@@ -50,7 +50,7 @@
 ## Status
 Problem | Code | Written
 :------------ | :-------------| :-------------
-ps0 | None |  :x: 
+ps0 |  |  :x: 
 ps1 | :heavy_check_mark: |  :x: 
 
 ## Additional resources
