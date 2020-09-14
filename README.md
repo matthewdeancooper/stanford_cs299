@@ -52,6 +52,9 @@ Problem | Code | Written
 :------------ | :-------------| :-------------
 ps0 |  |  :x: 
 ps1 | :heavy_check_mark: |  :x: 
+ps2 | :x: |  :x: 
+ps3 | :x: |  :x: 
+ps4 | :x: |  :x: 
 
 ## Additional resources
 1. [YouTube CS299 lecture series recorded in Fall
