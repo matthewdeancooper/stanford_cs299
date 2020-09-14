@@ -47,6 +47,11 @@
    submitting code then I recommend keeping it simple (for Linux) with pip,
    venv, and pyenv.
 
+## Status
+Problem | Code | Written
+:------------ | :-------------| :-------------
+ps0 | None |  :x: 
+ps1 | :heavy_check_mark: |  :x: 
 
 ## Additional resources
 1. [YouTube CS299 lecture series recorded in Fall
