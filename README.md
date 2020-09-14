@@ -19,11 +19,11 @@ ps4 | :x: |  :x:
    > "What I cannot create, I do not understand." - Feynman
 
 
-<p> <img
+<img
 <!-- <p align="center"> <img -->
   src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg"
   alt="Feynman's blackboard"/> 
-</p>
+<!-- </p> -->
 
 
 2. Working examples of each coding problem and their respective outputs are
