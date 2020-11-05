@@ -1,12 +1,22 @@
 # CS229 Fall 2018 Problem Sets
 
-Problem set| Code pushed| Written pushed 
+<<<<<<< HEAD
+| Problem set | Code pushed        | Written pushed |
+|:------------|:-------------------|:---------------|
+| ps0         |                    | :x:            |
+| ps1         | :heavy_check_mark: | :x:            |
+| ps2         | :x:                | :x:            |
+| ps3         | :x:                | :x:            |
+| ps4         | :x:                | :x:            |
+=======
+Problem set| Code completed | Written completed
 :------------ | :-------------| :-------------
 ps0 |  |  :x: 
 ps1 | :heavy_check_mark: |  :x: 
 ps2 | :x: |  :x: 
 ps3 | :x: |  :x: 
 ps4 | :x: |  :x: 
+>>>>>>> parent of 61f3cb0... README update
 
 ## Explanation
 
@@ -31,20 +41,20 @@ ps4 | :x: |  :x:
    below, where the problem set requested option 2).
 
 ```python
-  class LogisticRegression(LinearModel):
-      """Logistic regression with Newton's Method as the solver.
+class LogisticRegression(LinearModel):
+    """Logistic regression with Newton's Method as the solver.
 
-      There are multiple ways to formulate this solution:
-      1) Maximise the log likelihood by solving l'(theta) = 0 via Newtons method
-      2) Minimise the cost J(theta) by solving J'(theta) = 0 via Newtons method
-      3) Use gradient ascent to maximise the log likelihood l(theta)
-      4) Use gradient descent to minimise J(theta)
+    There are multiple ways to formulate this solution:
+    1) Maximise the log likelihood by solving l'(theta) = 0 via Newtons method
+    2) Minimise the cost J(theta) by solving J'(theta) = 0 via Newtons method
+    3) Use gradient ascent to maximise the log likelihood l(theta)
+    4) Use gradient descent to minimise J(theta)
 
-      Here, we implement 1) and calculate the Hessian and gradients accordingly.
-      ...
+    Here, we implement 1) and calculate the Hessian and gradients accordingly.
+    ...
 
-      """
-```
+    """
+ ```
 
 3. Where GitHub size limits permit, datasets have been included in the
    repository. However, this is not the case for the missing
