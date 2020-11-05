@@ -7,7 +7,6 @@ from linear_model import LinearModel
 
 def main(train_path, eval_path, pred_path):
     """Problem 1(b): Logistic regression with Newton's Method.
-
     Args:
         train_path: Path to CSV file containing dataset for training.
         eval_path: Path to CSV file containing dataset for evaluation.
@@ -35,14 +34,14 @@ def main(train_path, eval_path, pred_path):
 
 class LogisticRegression(LinearModel):
     """Logistic regression with Newton's Method as the solver.
-
     There are multiple ways to formulate this solution:
     1) Maximise the log likelihood by solving l'(theta) = 0 via Newtons method
     2) Minimise the cost J(theta) by solving J'(theta) = 0 via Newtons method
     3) Use gradient ascent to maximise the log likelihood l(theta)
     4) Use gradient descent to minimise J(theta)
 
-    Here, we implement 1) and calculate the Hessian and gradients accordingly.
+    Here, we implement 1) and calculate the Hessian and gradients
+    by batch gradient descent rather than stochastic gradient descent.
 
     Example usage:
         > clf = LogisticRegression()
@@ -76,8 +75,8 @@ class LogisticRegression(LinearModel):
                     H_kj += -self.hypothesis(x_i) * (
                         1 - self.hypothesis(x_i)) * x_i[j] * x_i[k]
                 hessian[k, j] = H_kj
-        assert hessian.shape == (self.theta.shape[0], self.theta.shape[0])
-        return hessian
+
+        return hessian / x.shape[0]
 
     def grad_log_liklihood(self, x, y):
         gradient = np.zeros_like(self.theta)
@@ -87,20 +86,17 @@ class LogisticRegression(LinearModel):
                 grad_j += (y_i - self.hypothesis(x_i)) * x_i[j]
             gradient[j] = grad_j
 
-        assert gradient.shape == self.theta.shape
-        return gradient
+        return gradient / x.shape[0]
 
     def newtons_method_step_size(self, x, y):
         inverse_hessian = linalg.inv(self.hessian_log_liklihood(x))
-        return -inverse_hessian @ self.grad_log_liklihood(x, y)
+        return inverse_hessian @ self.grad_log_liklihood(x, y)
 
     def fit(self, x, y):
         """Run Newton's Method to minimize J(theta) for logistic regression.
-
         Args:
             x: Training example inputs. Shape (m, n).
             y: Training example labels. Shape (m,).
-
         Notes:
             theta: Shape (n, ).
         """
@@ -110,8 +106,7 @@ class LogisticRegression(LinearModel):
         iterations = 0
         while True:
 
-            # Add update and let step function handle direction
-            theta_update = self.theta + self.newtons_method_step_size(x, y)
+            theta_update = self.theta - self.newtons_method_step_size(x, y)
             theta_difference = linalg.norm(theta_update - self.theta, ord=1)
 
             if theta_difference < self.eps:
@@ -124,10 +119,8 @@ class LogisticRegression(LinearModel):
 
     def predict(self, x):
         """Make a prediction given new inputs x.
-
         Args:
             x: Inputs of shape (m, n).
-
         Returns:
             Outputs of shape (m,).
         """
