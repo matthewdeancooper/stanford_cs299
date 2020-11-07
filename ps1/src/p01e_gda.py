@@ -32,7 +32,6 @@ def main(train_path, eval_path, pred_path):
     # Use np.savetxt to save outputs from validation set to pred_path
     predictions = model.predict(x_eval)
     np.savetxt(pred_path, predictions)
-    print("Completed")
     # *** END CODE HERE ***
 
 

@@ -40,7 +40,7 @@ class LogisticRegression(LinearModel):
     3) Use gradient ascent to maximise the log likelihood l(theta)
     4) Use gradient descent to minimise J(theta)
 
-    Here, we implement 1) and calculate the Hessian and gradients
+    Here, we implement 2) and calculate the Hessian and gradients
     by batch gradient descent rather than stochastic gradient descent.
 
     Example usage:
@@ -72,7 +72,7 @@ class LogisticRegression(LinearModel):
             for j in range(len(self.theta)):
                 H_kj = 0
                 for x_i in x:
-                    H_kj += -self.hypothesis(x_i) * (
+                    H_kj += self.hypothesis(x_i) * (
                         1 - self.hypothesis(x_i)) * x_i[j] * x_i[k]
                 hessian[k, j] = H_kj
 
@@ -86,7 +86,7 @@ class LogisticRegression(LinearModel):
                 grad_j += (y_i - self.hypothesis(x_i)) * x_i[j]
             gradient[j] = grad_j
 
-        return gradient / x.shape[0]
+        return -1 * gradient / x.shape[0]
 
     def newtons_method_step_size(self, x, y):
         inverse_hessian = linalg.inv(self.hessian_log_liklihood(x))
