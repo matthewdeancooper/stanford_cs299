@@ -13,10 +13,9 @@
 1. In the spirit of the Stanford honour code, full solutions are not provided in
    this repository. Rather, *solutions* to written problems contain important
    observations which sketch the right direction - the rest is *just* algebra.
-   Therefore, this repository is designed to serve as a blueprint cf. a walk-through.
+   Therefore, this repository is designed to serve as a blueprint cf. a walk-through. Why?
 
-   Why?  > "What I cannot create, I do not understand." - Feynman
-
+   > "What I cannot create, I do not understand." - Feynman
 
 <p align="center"> <img
   src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg"
