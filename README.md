@@ -15,9 +15,7 @@
    observations which sketch the right direction - the rest is *just* algebra.
    Therefore, this repository is designed to serve as a blueprint cf. a walk-through.
 
-   Why?
-   
-   > "What I cannot create, I do not understand." - Feynman
+   Why?  > "What I cannot create, I do not understand." - Feynman
 
 
 <p align="center"> <img
