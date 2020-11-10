@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+from numpy.core.numeric import ones
 
 
 def add_intercept(x):
@@ -60,7 +61,7 @@ def load_dataset(csv_path, label_col='y', add_intercept=False):
     return inputs, labels
 
 
-def plot(x, y, theta, save_path, correction=1.0, show=False, title=None):
+def plot(x, y, theta, save_path=False, correction=1.0, title=None):
     """Plot dataset and fitted logistic regression parameters.
 
     Args:
@@ -87,6 +88,29 @@ def plot(x, y, theta, save_path, correction=1.0, show=False, title=None):
     if title is not None:
         plt.title(title)
 
-    plt.savefig(save_path)
-    if show is True:
-        plt.show()
+    if save_path:
+        plt.savefig(save_path)
+
+
+def plot_multiple(x, y, thetas, colours, save_path=False, corrections=None, title=None):
+    plt.figure()
+    plt.plot(x[y == 1, -2], x[y == 1, -1], 'bx', linewidth=2)
+    plt.plot(x[y == 0, -2], x[y == 0, -1], 'go', linewidth=2)
+
+    if corrections is None:
+        corrections = np.ones(len(thetas))
+
+    for theta, correction, colour in zip(thetas, corrections, colours):
+        x1 = np.arange(min(x[:, -2]), max(x[:, -2]), 0.01)
+        x2 = -(theta[0] / theta[2] * correction + theta[1] / theta[2] * x1)
+        plt.plot(x1, x2, c=colour, linewidth=2)
+
+    # Add labels and save to disk
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+
+    if title is not None:
+        plt.title(title)
+
+    if save_path:
+        plt.savefig(save_path)

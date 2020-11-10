@@ -3,6 +3,9 @@ from numpy import linalg
 
 import util
 from linear_model import LinearModel
+from p01b_logreg import LogisticRegression
+
+import matplotlib.pyplot as plt
 
 
 def main(train_path, eval_path, pred_path):
@@ -13,25 +16,31 @@ def main(train_path, eval_path, pred_path):
         eval_path: Path to CSV file containing dataset for evaluation.
         pred_path: Path to save predictions.
     """
-    # Load dataset
-    # Drop x0 = 1 convention as in linear + logistic regression examples
-    x_train, y_train = util.load_dataset(train_path, add_intercept=False)
-    x_eval, y_eval = util.load_dataset(eval_path, add_intercept=False)
-
-    assert set(y_train) == {0.0, 1.0} or {0, 1}
-
     # *** START CODE HERE ***
     # Train a GDA classifier
+    # NOTE Drop x0 = 1 convention as in regression examples
+    # Will need to account for this to write in terms of theta
+    x_train, y_train = util.load_dataset(train_path, add_intercept=False)
+    x_eval, y_eval = util.load_dataset(eval_path, add_intercept=False)
     model = GDA()
     model.fit(x_train, y_train)
 
-    # Plot decision boundary on validation set
-    fig_path = pred_path[:-4] + "_fig.jpg"
-    util.plot(x_eval, y_eval, model.theta, fig_path)
-
-    # Use np.savetxt to save outputs from validation set to pred_path
     predictions = model.predict(x_eval)
     np.savetxt(pred_path, predictions)
+
+    # Train Logistic regression classifier
+    x_train, y_train = util.load_dataset(train_path, add_intercept=True)
+    x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
+    theta_0 = np.zeros(x_train.shape[-1])
+    model2 = LogisticRegression(theta_0=theta_0)
+    model2.fit(x_train, y_train)
+
+    # Plot decision boundary on validation set
+    # Compare decision boundary with logistic
+    thetas = [model.theta, model2.theta]
+    fig_path = pred_path[:-4] + "_fig.jpg"
+    colours = ["red", "orange"]
+    util.plot_multiple(x_eval, y_eval, thetas, colours, fig_path)
     # *** END CODE HERE ***
 
 
@@ -64,8 +73,8 @@ class GDA(LinearModel):
         return sigma / len(y)
 
     def construct_theta(self, phi, mu_0, mu_1, sigma):
-        theta = linalg.inv(sigma) @ (mu_1 - mu_0)
         inverse_sigma = linalg.inv(sigma)
+        theta = inverse_sigma @ (mu_1 - mu_0)
         theta_0 = 0.5 * (mu_0 @ inverse_sigma @ mu_1 -
                          mu_1 @ inverse_sigma @ mu_0) - np.log((1 - phi) / phi)
         return np.append(theta_0, theta)
@@ -97,8 +106,7 @@ class GDA(LinearModel):
         mu_0 = self.mu_0(x, y)
         mu_1 = self.mu_1(x, y)
         sigma = self.sigma(x, y, mu_0, mu_1)
-        # Write theta in terms of the parameters
-        # GDA cf. logistic regression give different decision boundaries
+        # Write theta in terms of the parameters for linear decision boundary
         self.theta = self.construct_theta(phi, mu_0, mu_1, sigma)
         # *** END CODE HERE ***
 
@@ -113,5 +121,5 @@ class GDA(LinearModel):
         """
         # *** START CODE HERE ***
         predictions = self.probability(x)
-        return np.round(predictions)
+        return predictions
         # *** END CODE HERE

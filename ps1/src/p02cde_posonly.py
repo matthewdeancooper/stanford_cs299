@@ -87,36 +87,24 @@ def main(train_path, valid_path, test_path, pred_path):
     print("Plotting c")
     title = "Trained on t directly"
     fig_path = pred_path_c[:-4] + "_fig.jpg"
-    util.plot(
-        x_test,
-        # np.round(predictions_c),
-        t_test,
-        theta_c,
-        fig_path,
-        title=title)
+    util.plot(x_test, t_test, theta_c, fig_path, title=title)
 
     # Part d
     print("Plotting d")
     title = "Trained on y - no correction for t"
     fig_path = pred_path_d[:-4] + "_fig.jpg"
-    util.plot(
-        x_test,
-        # np.round(predictions_d),
-        t_test,
-        theta_d,
-        fig_path,
-        title=title)
+    util.plot(x_test, t_test, theta_d, fig_path, title=title)
 
     # Part e
     print("Plotting e")
     title = "Trained on y, corrected to infer t via alpha"
     fig_path = pred_path_e[:-4] + "_fig.jpg"
-    util.plot(
-        x_test,
-        # np.round(predictions_e),
-        t_test,
-        theta_d,
-        fig_path,
-        correction=alpha,
-        title=title)
+    util.plot(x_test, t_test, theta_d, fig_path, correction=alpha, title=title)
+
+
+    thetas = [theta_c, theta_d, theta_d]
+    colours = ["red", "orange", "yellow"]
+    fig_path = "output/p02_all" + "_fig.jpg"
+    corrections = [1, 1, alpha]
+    util.plot_multiple(x_test, t_test, thetas, colours, fig_path, corrections)
     # *** END CODER HERE
