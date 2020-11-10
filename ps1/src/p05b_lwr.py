@@ -25,7 +25,7 @@ def main(tau, train_path, eval_path):
 
     # Get MSE value on the validation set
     MSE = model.MSE(x_eval, y_eval, lwr=True)
-    print("MSE:", MSE)
+    print(f"MSE(tau = {tau}): {MSE}")
 
     # Plotting handled in next coding question
     # *** END CODE HERE ***

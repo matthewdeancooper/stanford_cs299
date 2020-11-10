@@ -20,7 +20,7 @@ def main(tau_values, train_path, valid_path, test_path, pred_path):
     x_eval, y_eval = util.load_dataset(valid_path, add_intercept=True)
     x_test, y_test = util.load_dataset(test_path, add_intercept=True)
 
-    # *** START CODE HERE ***
+    # *** PART ONE ***
     # Search tau_values for the best tau (lowest MSE on the validation set)
     MSE = []
     fig, axs = plt.subplots(2, 3, sharey=False)
@@ -42,27 +42,23 @@ def main(tau_values, train_path, valid_path, test_path, pred_path):
     plt.close()
 
     for tau, mse in zip(tau_values, MSE):
-        print("tau:", tau, ",", "MSE:", mse)
+        print(f"MSE(tau = {tau}): {mse}")
 
+
+
+    # *** PART TWO ***
     # Fit a LWR model with the best tau value
     tau = tau_values[MSE.index(min(MSE))]
-    print("tau chosen:", tau)
+    print("\ntau chosen:", tau)
 
     model = LocallyWeightedLinearRegression(tau)
     model.fit(x_train, y_train)
 
     # Run on the test set to get the MSE value
     MSE = model.MSE(x_test, y_test, lwr=True)
-    print("MSE:", MSE)
+    print(f"Test MSE(tau = {tau}): {mse}")
 
     # Save predictions to pred_path
     predictions = model.predict(x_test)
     np.savetxt(pred_path, predictions)
-
-    # Plot data
-    fig_path = pred_path[:-4] + "_test_fig.jpg"
-    plt.scatter(x_test[:,1], y_test)
-    plt.scatter(x_test[:,1], predictions, color='red')
-    plt.savefig(fig_path)
-    plt.close()
     # *** END CODE HERE ***
