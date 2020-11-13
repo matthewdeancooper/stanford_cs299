@@ -1,0 +1,14 @@
+flake8
+yapf
+isort
+python-language-server
+neovim
+ptvsd
+torch
+torchvision
+jupyterlab
+matplotlib
+pandas
+scipy
+scikit-learn
+tqdm

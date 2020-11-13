@@ -1,6 +1,5 @@
 import numpy as np
 from numpy import linalg
-import time
 
 import util
 from linear_model import LinearModel
