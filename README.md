@@ -32,7 +32,7 @@
 4. The official setup requires Miniconda to be installed to initialise the
    `environment.yml` virtual environment. However, if you're not officially
    submitting code then I recommend keeping it simple (for Linux) with pip,
-   venv, and pyenv.
+   venv.
 
 
 ## Additional resources
