@@ -18,8 +18,7 @@ def main(train_path, eval_path, pred_path):
     x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
 
     # Train a logistic regression classifier
-    theta_0 = np.zeros(x_train.shape[-1])
-    model = LogisticRegression(theta_0=theta_0)
+    model = LogisticRegression()
     model.fit(x_train, y_train)
 
     # Use np.savetxt to save predictions on eval set to pred_path
@@ -76,12 +75,15 @@ class LogisticRegression(LinearModel):
 
             return -1 * gradient / len(x)
 
+        if self.theta is None:
+            self.theta = np.zeros(x.shape[-1])
+
         iterations = 0
         while True:
-
-            inverse_hessian = linalg.inv(_hessian_log_liklihood(x))
-            theta_update = self.theta - inverse_hessian @ _grad_log_liklihood(
-                x, y)
+            gradient = _grad_log_liklihood(x, y)
+            hessian = _hessian_log_liklihood(x)
+            inverse_hessian = linalg.inv(hessian)
+            theta_update = self.theta - inverse_hessian @ gradient
             theta_difference = linalg.norm(theta_update - self.theta, ord=1)
 
             if theta_difference < self.eps:
@@ -94,6 +96,7 @@ class LogisticRegression(LinearModel):
 
     def predict(self, x):
         """Make a prediction given new inputs x.
+
         Args:
             x: Inputs of shape (m, n). Assumes x[i][0] == 1
         Returns:
@@ -110,3 +113,10 @@ class LogisticRegression(LinearModel):
         z = np.array([self.theta @ x_i for x_i in x])
         return _sigmoid(z)
         # *** END CODE HERE ***
+
+
+if __name__ == "__main__":
+    train_path = '../data/ds1_train.csv'
+    eval_path = '../data/ds1_valid.csv'
+    pred_path = 'output/p01b_pred_1.txt'
+    main(train_path, eval_path, pred_path)
