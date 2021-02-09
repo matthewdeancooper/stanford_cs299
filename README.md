@@ -11,7 +11,7 @@
 ## Explanation
 
 1. In the spirit of the Stanford honour code, full solutions are not provided in
-   this repository. Rather, *solutions* to written problems contain important
+   this repository. Rather, *solutions* to written problems will contain important
    observations which sketch the right direction - the rest is *just* algebra.
    Therefore, this repository is designed to serve as a blueprint cf. a walk-through. Why?
 
@@ -30,8 +30,8 @@
    `stanford_cs229/ps4/data` directory.
 
 4. The official setup requires Miniconda to be installed to initialise the
-   `environment.yml` virtual environment. However, if you're not officially
-   submitting code then I recommend keeping it simple (for Linux) with pip,
+   `environment.yml` environment. However, if you're not officially
+   submitting code then I recommend keeping it simple (for Linux) with pip, and
    venv.
 
 
