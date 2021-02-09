@@ -15,14 +15,13 @@
    observations which sketch the right direction - the rest is *just* algebra.
    Therefore, this repository is designed to serve as a blueprint cf. a walk-through. Why?
 
-   > "What I cannot create, I do not understand." - Feynman
-
-<p align="center"> <img
+<p><img
   src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg"
   alt="Feynman's blackboard"/> 
 </p>
 
-
+   > "What I cannot create, I do not understand." - Feynman
+   
 2. Working examples of each coding problem and their respective outputs are
    included. 
 
