@@ -44,50 +44,6 @@ class LogisticRegression(LinearModel):
         > clf.fit(x_train, y_train)
         > clf.predict(x_eval)
     """
-    def assert_x0(self, x):
-        for x_i in x:
-            assert x_i[0] == 1
-
-    def sigmoid(self, z):
-        return 1 / (1 + np.exp(-z))
-
-    def hypothesis(self, x):
-        # Using the vectored logistic/sigmoid function as the activation.
-        # As theta has shape (n,) the transpose is an identity operation
-        # @ is equivalent to the dot product for shapes (n,) @ (n,)
-        if len(x.shape) == 1:
-            z = self.theta @ x
-        else:
-            z = np.array([self.theta @ x_i for x_i in x])
-            assert z.shape == (x.shape[0], )
-        return self.sigmoid(z)
-
-    def hessian_log_liklihood(self, x):
-        hessian = np.zeros((self.theta.shape[0], self.theta.shape[0]))
-        for k in range(len(self.theta)):
-            for j in range(len(self.theta)):
-                H_kj = 0
-                for x_i in x:
-                    H_kj += self.hypothesis(x_i) * (
-                        1 - self.hypothesis(x_i)) * x_i[j] * x_i[k]
-                hessian[k, j] = H_kj
-
-        return hessian / x.shape[0]
-
-    def grad_log_liklihood(self, x, y):
-        gradient = np.zeros_like(self.theta)
-        for j in range(len(self.theta)):
-            grad_j = 0
-            for x_i, y_i in zip(x, y):
-                grad_j += (y_i - self.hypothesis(x_i)) * x_i[j]
-            gradient[j] = grad_j
-
-        return -1 * gradient / x.shape[0]
-
-    def newtons_method_step_size(self, x, y):
-        inverse_hessian = linalg.inv(self.hessian_log_liklihood(x))
-        return inverse_hessian @ self.grad_log_liklihood(x, y)
-
     def fit(self, x, y):
         """Run Newton's Method to minimize J(theta) for logistic regression.
         Args:
@@ -98,11 +54,34 @@ class LogisticRegression(LinearModel):
         """
 
         # *** START CODE HERE ***
-        self.assert_x0(x)
+        def _hessian_log_liklihood(x):
+            index_max = self.theta.shape[0]
+            hessian = np.zeros((index_max, index_max))
+            for k in range(index_max):
+                for j in range(index_max):
+                    H_kj = 0
+                    for x_i in x:
+                        H_kj += self.predict([x_i]) * (
+                            1 - self.predict([x_i])) * x_i[j] * x_i[k]
+                    hessian[k, j] = H_kj
+            return hessian / len(x)
+
+        def _grad_log_liklihood(x, y):
+            gradient = np.zeros_like(self.theta)
+            for j in range(len(gradient)):
+                grad_j = 0
+                for x_i, y_i in zip(x, y):
+                    grad_j += (y_i - self.predict([x_i])) * x_i[j]
+                gradient[j] = grad_j
+
+            return -1 * gradient / len(x)
+
         iterations = 0
         while True:
 
-            theta_update = self.theta - self.newtons_method_step_size(x, y)
+            inverse_hessian = linalg.inv(_hessian_log_liklihood(x))
+            theta_update = self.theta - inverse_hessian @ _grad_log_liklihood(
+                x, y)
             theta_difference = linalg.norm(theta_update - self.theta, ord=1)
 
             if theta_difference < self.eps:
@@ -116,11 +95,18 @@ class LogisticRegression(LinearModel):
     def predict(self, x):
         """Make a prediction given new inputs x.
         Args:
-            x: Inputs of shape (m, n).
+            x: Inputs of shape (m, n). Assumes x[i][0] == 1
         Returns:
             Outputs of shape (m,).
         """
+
         # *** START CODE HERE ***
-        self.assert_x0(x)
-        return self.hypothesis(x)
+        def _sigmoid(z):
+            return 1 / (1 + np.exp(-z))
+
+        for x_i in x:
+            assert x_i[0] == 1
+
+        z = np.array([self.theta @ x_i for x_i in x])
+        return _sigmoid(z)
         # *** END CODE HERE ***

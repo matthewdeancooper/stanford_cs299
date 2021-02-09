@@ -14,6 +14,9 @@ def main(tau, train_path, eval_path):
         train_path: Path to CSV file containing dataset for training.
         eval_path: Path to CSV file containing dataset for evaluation.
     """
+    def _MSE(x, y):
+        return np.mean((x - y)**2)
+
     # Load training set
     x_train, y_train = util.load_dataset(train_path, add_intercept=True)
     x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
@@ -24,7 +27,8 @@ def main(tau, train_path, eval_path):
     model.fit(x_train, y_train)
 
     # Get MSE value on the validation set
-    MSE = model.MSE(x_eval, y_eval, lwr=True)
+    predictions = model.predict(x_eval)
+    MSE = _MSE(predictions, y_eval)
     print(f"MSE(tau = {tau}): {MSE}")
 
     # Plotting handled in next coding question
@@ -45,31 +49,6 @@ class LocallyWeightedLinearRegression(LinearModel):
         self.x = None
         self.y = None
 
-    def analytic_theta(self, prediction_instance, weight_matrix):
-        transpose_x = self.x.transpose()
-        inverse_product = linalg.inv(transpose_x @ weight_matrix @ self.x)
-        return inverse_product @ transpose_x @ self.y
-
-    def weight_matrix(self, prediction_instance):
-        weight_matrix = np.zeros((self.x.shape[0], self.x.shape[0]))
-        for i, train_instance in enumerate(self.x):
-            weight_matrix[i, i] = 0.5 * self.weight_instance(
-                train_instance, prediction_instance)
-        return weight_matrix
-
-    def weight_instance(self, train_instance, prediction_instance):
-        weight_instance = np.exp(-((train_instance[1] - prediction_instance[1])**2) /
-                                 (2 * self.tau**2))
-        # assert weight_instance > 0
-        return weight_instance
-
-    def hypothesis(self, prediction_instance, theta):
-        return theta @ prediction_instance
-
-    def MSE(self, x, y, lwr=True):
-        predictions = self.predict(x, lwr)
-        return np.mean((predictions-y)**2)
-
     def fit(self, x, y):
         """Fit LWR by saving the training set.
 
@@ -88,14 +67,40 @@ class LocallyWeightedLinearRegression(LinearModel):
         Returns:
             Outputs of shape (m,).
         """
+
         # *** START CODE HERE ***
+
+        def _weight_instance(train_instance, prediction_instance):
+            weight_instance = np.exp(
+                -((train_instance[1] - prediction_instance[1])**2) /
+                (2 * self.tau**2))
+            return weight_instance
+
+        def _weight_matrix(prediction_instance):
+            weight_matrix = np.zeros((self.x.shape[0], self.x.shape[0]))
+            for i, train_instance in enumerate(self.x):
+                weight_instance = _weight_instance(train_instance,
+                                                   prediction_instance)
+                weight_matrix[i, i] = 0.5 * weight_instance
+            return weight_matrix
+
+        def _analytic_theta(prediction_instance, weight_matrix):
+            transpose_x = self.x.transpose()
+            inverse_product = linalg.inv(transpose_x @ weight_matrix @ self.x)
+            return inverse_product @ transpose_x @ self.y
+
         predictions = []
         for prediction_instance in x:
             if lwr:
-                weight_matrix = self.weight_matrix(prediction_instance)
+                weight_matrix = _weight_matrix(prediction_instance)
             else:
                 weight_matrix = np.identity(self.x.shape[0])
-            theta = self.analytic_theta(prediction_instance, weight_matrix)
-            predictions.append(self.hypothesis(prediction_instance, theta))
+
+            analytic_theta = _analytic_theta(prediction_instance,
+                                             weight_matrix)
+            hypothesis = analytic_theta @ prediction_instance
+
+            predictions.append(hypothesis)
+
         return np.array(predictions)
         # *** END CODE HERE ***

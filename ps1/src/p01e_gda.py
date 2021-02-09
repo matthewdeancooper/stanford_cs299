@@ -1,11 +1,10 @@
+import matplotlib.pyplot as plt
 import numpy as np
 from numpy import linalg
 
 import util
 from linear_model import LinearModel
 from p01b_logreg import LogisticRegression
-
-import matplotlib.pyplot as plt
 
 
 def main(train_path, eval_path, pred_path):
@@ -18,7 +17,7 @@ def main(train_path, eval_path, pred_path):
     """
     # *** START CODE HERE ***
     # Train a GDA classifier
-    # NOTE Drop x0 = 1 convention as in regression examples
+    # NOTE Drop x0 = 1 convention used in regression examples
     # Will need to account for this to write in terms of theta
     x_train, y_train = util.load_dataset(train_path, add_intercept=False)
     x_eval, y_eval = util.load_dataset(eval_path, add_intercept=False)
@@ -52,44 +51,6 @@ class GDA(LinearModel):
         > clf.fit(x_train, y_train)
         > clf.predict(x_eval)
     """
-    def phi(self, y):
-        return sum(y == 1) / len(y)
-
-    def mu_0(self, x, y):
-        return ((y == 0) @ x) / sum(y == 0)
-
-    def mu_1(self, x, y):
-        return ((y == 1) @ x) / sum(y == 1)
-
-    def sigma(self, x, y, mu_0, mu_1):
-        sigma = np.zeros((mu_0.shape[0], mu_0.shape[0]))
-        for x_i, y_i in zip(x, y):
-            if y_i == 0:
-                mu = mu_0
-            else:
-                mu = mu_1
-            x_i.shape = (len(x_i), 1)
-            sigma += (x_i - mu) @ (x_i - mu).transpose()
-        return sigma / len(y)
-
-    def construct_theta(self, phi, mu_0, mu_1, sigma):
-        inverse_sigma = linalg.inv(sigma)
-        theta = inverse_sigma @ (mu_1 - mu_0)
-        theta_0 = 0.5 * (mu_0 @ inverse_sigma @ mu_1 -
-                         mu_1 @ inverse_sigma @ mu_0) - np.log((1 - phi) / phi)
-        return np.append(theta_0, theta)
-
-    def sigmoid(self, z):
-        return 1 / (1 + np.exp(-z))
-
-    def probability(self, x):
-        # Returns the probability of y=1|x in logistic form
-        theta_0, theta = self.theta[0], self.theta[1:]
-        # Add theta_0 to account for missing x_0 = 1's
-        z = np.array([theta @ x_i for x_i in x]) + theta_0
-        assert z.shape == (x.shape[0], )
-        return self.sigmoid(z)
-
     def fit(self, x, y):
         """Fit a GDA model to training set given by x and y.
 
@@ -100,14 +61,44 @@ class GDA(LinearModel):
         Returns:
             theta: GDA model parameters.
         """
+
         # *** START CODE HERE ***
         # Find phi, mu_0, mu_1, and sigma by maximising log likelihood
-        phi = self.phi(y)
-        mu_0 = self.mu_0(x, y)
-        mu_1 = self.mu_1(x, y)
-        sigma = self.sigma(x, y, mu_0, mu_1)
+        def _phi(y):
+            return sum(y == 1) / len(y)
+
+        def _mu_0(x, y):
+            return ((y == 0) @ x) / sum(y == 0)
+
+        def _mu_1(x, y):
+            return ((y == 1) @ x) / sum(y == 1)
+
+        def _sigma(x, y, mu_0, mu_1):
+            sigma = np.zeros((mu_0.shape[0], mu_0.shape[0]))
+            for x_i, y_i in zip(x, y):
+                if y_i == 0:
+                    mu = mu_0
+                else:
+                    mu = mu_1
+                x_i.shape = (len(x_i), 1)
+                sigma += (x_i - mu) @ (x_i - mu).transpose()
+            return sigma / len(y)
+
+        def _construct_theta(phi, mu_0, mu_1, sigma):
+            inverse_sigma = linalg.inv(sigma)
+            theta = inverse_sigma @ (mu_1 - mu_0)
+            theta_0 = 0.5 * (mu_0 @ inverse_sigma @ mu_1 -
+                             mu_1 @ inverse_sigma @ mu_0) - np.log(
+                                 (1 - phi) / phi)
+            return np.append(theta_0, theta)
+
+        phi = _phi(y)
+        mu_0 = _mu_0(x, y)
+        mu_1 = _mu_1(x, y)
+        sigma = _sigma(x, y, mu_0, mu_1)
+
         # Write theta in terms of the parameters for linear decision boundary
-        self.theta = self.construct_theta(phi, mu_0, mu_1, sigma)
+        self.theta = _construct_theta(phi, mu_0, mu_1, sigma)
         # *** END CODE HERE ***
 
     def predict(self, x):
@@ -119,7 +110,17 @@ class GDA(LinearModel):
         Returns:
             Outputs of shape (m,).
         """
+
         # *** START CODE HERE ***
-        predictions = self.probability(x)
-        return predictions
+
+        def _sigmoid(z):
+            return 1 / (1 + np.exp(-z))
+
+        # Returns the probability of y=1|x in logistic form
+        theta_0, theta = self.theta[0], self.theta[1:]
+
+        # Add theta_0 to account for missing x_0 = 1's
+        z = np.array([theta @ x_i for x_i in x]) + theta_0
+
+        return _sigmoid(z)
         # *** END CODE HERE
