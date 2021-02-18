@@ -1,9 +1,9 @@
 # CS229 Fall 2018 Problem Sets
 
-| Problem set | Code pushed        | Written pushed |
+| Problem set | Code pushed        | Written complete |
 |:------------|:-------------------|:---------------|
-| ps0         |                    | :x:            |
-| ps1         | :heavy_check_mark: | :x:            |
+| ps0         |                    | :heavy_check_mark:            |
+| ps1         | :heavy_check_mark: | :heavy_check_mark:           |
 | ps2         | :x:                | :x:            |
 | ps3         | :x:                | :x:            |
 | ps4         | :x:                | :x:            |
@@ -12,8 +12,7 @@
 ## Explanation
 
 1. In the spirit of the Stanford honour code, full solutions are not provided in
-   this repository. Rather, *solutions* to written problems will contain important
-   observations which sketch the right direction - the rest is *just* algebra.
+   this repository. Rather, only code *solutions* are pushed - the rest is *just* algebra.
    Therefore, this repository is designed to serve as a blueprint cf. a walk-through. Why?
 
 <p><img
