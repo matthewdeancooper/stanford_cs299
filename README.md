@@ -2,8 +2,8 @@
 
 | Problem set | Code pushed        | Written complete |
 |:------------|:-------------------|:---------------|
-| ps0         |                    | :x:            |
-| ps1         | :heavy_check_mark: | :x:            |
+| ps0         |                    | :heavy_check_mark:            |
+| ps1         | :heavy_check_mark: | :heavy_check_mark:           |
 | ps2         | :x:                | :x:            |
 | ps3         | :x:                | :x:            |
 | ps4         | :x:                | :x:            |
