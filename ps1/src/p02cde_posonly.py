@@ -101,10 +101,17 @@ def main(train_path, valid_path, test_path, pred_path):
     fig_path = pred_path_e[:-4] + "_fig.jpg"
     util.plot(x_test, t_test, theta_d, fig_path, correction=alpha, title=title)
 
-
     thetas = [theta_c, theta_d, theta_d]
     colours = ["red", "orange", "yellow"]
     fig_path = "output/p02_all" + "_fig.jpg"
     corrections = [1, 1, alpha]
     util.plot_multiple(x_test, t_test, thetas, colours, fig_path, corrections)
     # *** END CODER HERE
+
+
+if __name__ == "__main__":
+    print("\nTesting p02")
+    main(train_path='../data/ds3_train.csv',
+         valid_path='../data/ds3_valid.csv',
+         test_path='../data/ds3_test.csv',
+         pred_path='output/p02X_pred.txt')

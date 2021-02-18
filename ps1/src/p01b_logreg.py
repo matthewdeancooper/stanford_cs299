@@ -55,25 +55,30 @@ class LogisticRegression(LinearModel):
         # *** START CODE HERE ***
         def _hessian_log_liklihood(x):
             index_max = self.theta.shape[0]
-            hessian = np.zeros((index_max, index_max))
+            matrix = np.zeros((index_max, index_max))
             for k in range(index_max):
                 for j in range(index_max):
-                    H_kj = 0
-                    for x_i in x:
-                        H_kj += self.predict([x_i]) * (
-                            1 - self.predict([x_i])) * x_i[j] * x_i[k]
-                    hessian[k, j] = H_kj
-            return hessian / len(x)
+                    # Fill triangular matrix
+                    if j <= k:
+                        M_kj = 0
+                        for x_i in x:
+                            M_kj += self.predict([x_i]) * (
+                                1 - self.predict([x_i])) * x_i[j] * x_i[k]
+                        # Symmetric matrix
+                        matrix[k, j] = M_kj
+                        matrix[j, k] = M_kj
+                    else:
+                        break
+            return matrix / len(x)
 
         def _grad_log_liklihood(x, y):
-            gradient = np.zeros_like(self.theta)
-            for j in range(len(gradient)):
-                grad_j = 0
+            vector = np.zeros_like(self.theta)
+            for j in range(len(vector)):
+                vector_j = 0
                 for x_i, y_i in zip(x, y):
-                    grad_j += (y_i - self.predict([x_i])) * x_i[j]
-                gradient[j] = grad_j
-
-            return -1 * gradient / len(x)
+                    vector_j += (self.predict([x_i]) - y_i) * x_i[j]
+                vector[j] = vector_j
+            return vector / len(x)
 
         if self.theta is None:
             self.theta = np.zeros(x.shape[-1])
@@ -81,8 +86,8 @@ class LogisticRegression(LinearModel):
         iterations = 0
         while True:
             gradient = _grad_log_liklihood(x, y)
-            hessian = _hessian_log_liklihood(x)
-            inverse_hessian = linalg.inv(hessian)
+            matrix = _hessian_log_liklihood(x)
+            inverse_hessian = linalg.inv(matrix)
             theta_update = self.theta - inverse_hessian @ gradient
             theta_difference = linalg.norm(theta_update - self.theta, ord=1)
 
@@ -116,7 +121,12 @@ class LogisticRegression(LinearModel):
 
 
 if __name__ == "__main__":
-    train_path = '../data/ds1_train.csv'
-    eval_path = '../data/ds1_valid.csv'
-    pred_path = 'output/p01b_pred_1.txt'
-    main(train_path, eval_path, pred_path)
+    print("\nTesting p01b-1")
+    main(train_path='../data/ds1_train.csv',
+         eval_path='../data/ds1_valid.csv',
+         pred_path='output/p01b_pred_1.txt')
+
+    print("\nTesting p01b-2")
+    main(train_path='../data/ds2_train.csv',
+         eval_path='../data/ds2_valid.csv',
+         pred_path='output/p01b_pred_2.txt')

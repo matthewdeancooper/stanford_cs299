@@ -31,7 +31,6 @@ def load_dataset(csv_path, label_col='y', add_intercept=False):
         xs: Numpy array of x-values (inputs).
         ys: Numpy array of y-values (labels).
     """
-
     def add_intercept_fn(x):
         global add_intercept
         return add_intercept(x)
@@ -39,8 +38,8 @@ def load_dataset(csv_path, label_col='y', add_intercept=False):
     # Validate label_col argument
     allowed_label_cols = ('y', 't')
     if label_col not in allowed_label_cols:
-        raise ValueError('Invalid label_col: {} (expected {})'
-                         .format(label_col, allowed_label_cols))
+        raise ValueError('Invalid label_col: {} (expected {})'.format(
+            label_col, allowed_label_cols))
 
     # Load headers
     with open(csv_path, 'r') as csv_fh:
@@ -92,7 +91,13 @@ def plot(x, y, theta, save_path=False, correction=1.0, title=None):
         plt.savefig(save_path)
 
 
-def plot_multiple(x, y, thetas, colours, save_path=False, corrections=None, title=None):
+def plot_multiple(x,
+                  y,
+                  thetas,
+                  colours,
+                  save_path=False,
+                  corrections=None,
+                  title=None):
     plt.figure()
     plt.plot(x[y == 1, -2], x[y == 1, -1], 'bx', linewidth=2)
     plt.plot(x[y == 0, -2], x[y == 0, -1], 'go', linewidth=2)
@@ -103,6 +108,7 @@ def plot_multiple(x, y, thetas, colours, save_path=False, corrections=None, titl
     for theta, correction, colour in zip(thetas, corrections, colours):
         x1 = np.arange(min(x[:, -2]), max(x[:, -2]), 0.01)
         x2 = -(theta[0] / theta[2] * correction + theta[1] / theta[2] * x1)
+
         plt.plot(x1, x2, c=colour, linewidth=2)
 
     # Add labels and save to disk

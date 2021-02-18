@@ -30,8 +30,7 @@ def main(train_path, eval_path, pred_path):
     # Train Logistic regression classifier
     x_train, y_train = util.load_dataset(train_path, add_intercept=True)
     x_eval, y_eval = util.load_dataset(eval_path, add_intercept=True)
-    theta_0 = np.zeros(x_train.shape[-1])
-    model2 = LogisticRegression(theta_0=theta_0)
+    model2 = LogisticRegression()
     model2.fit(x_train, y_train)
 
     # Plot decision boundary on validation set
@@ -39,7 +38,8 @@ def main(train_path, eval_path, pred_path):
     thetas = [model.theta, model2.theta]
     fig_path = pred_path[:-4] + "_fig.jpg"
     colours = ["red", "orange"]
-    util.plot_multiple(x_eval, y_eval, thetas, colours, fig_path)
+    title = "LinearReg (Orange) vs. GDA (Red)"
+    util.plot_multiple(x_eval, y_eval, thetas, colours, fig_path, title=title)
     # *** END CODE HERE ***
 
 
@@ -86,9 +86,9 @@ class GDA(LinearModel):
 
         def _construct_theta(phi, mu_0, mu_1, sigma):
             inverse_sigma = linalg.inv(sigma)
-            theta = inverse_sigma @ (mu_1 - mu_0)
-            theta_0 = 0.5 * (mu_0 @ inverse_sigma @ mu_1 -
-                             mu_1 @ inverse_sigma @ mu_0) - np.log(
+            theta = (mu_1 - mu_0) @ inverse_sigma
+            theta_0 = 0.5 * (mu_0 @ inverse_sigma @ mu_0 -
+                             mu_1 @ inverse_sigma @ mu_1) - np.log(
                                  (1 - phi) / phi)
             return np.append(theta_0, theta)
 
@@ -124,3 +124,15 @@ class GDA(LinearModel):
 
         return _sigmoid(z)
         # *** END CODE HERE
+
+
+if __name__ == "__main__":
+    print("\nTesting p01e-1")
+    main(train_path='../data/ds1_train.csv',
+         eval_path='../data/ds1_valid.csv',
+         pred_path='output/p01e_pred_1.txt')
+
+    print("\nTesting p01e-2")
+    main(train_path='../data/ds2_train.csv',
+         eval_path='../data/ds2_valid.csv',
+         pred_path='output/p01e_pred_2.txt')

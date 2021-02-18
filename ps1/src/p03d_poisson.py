@@ -84,7 +84,8 @@ class PoissonRegression(LinearModel):
         while True:
             natural_parameter = self.natural_parameter(x)
             cannonical_response = self.cannonical_response(natural_parameter)
-            grad_log_likelihood = self.grad_log_likelihood(x, y, cannonical_response)
+            grad_log_likelihood = self.grad_log_likelihood(
+                x, y, cannonical_response)
 
             # Add update via gradient ascent
             theta_update = self.theta + self.step_size * grad_log_likelihood
@@ -124,3 +125,11 @@ class PoissonRegression(LinearModel):
         cannonical_response = self.cannonical_response(natural_parameter)
         return cannonical_response
         # *** END CODE HERE ***
+
+
+if __name__ == "__main__":
+    print("\nTesting p03")
+    main(lr=1e-7,
+         train_path='../data/ds4_train.csv',
+         eval_path='../data/ds4_valid.csv',
+         pred_path='output/p03d_pred.txt')

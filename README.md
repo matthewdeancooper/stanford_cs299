@@ -8,6 +8,7 @@
 | ps3         | :x:                | :x:            |
 | ps4         | :x:                | :x:            |
 
+
 ## Explanation
 
 1. In the spirit of the Stanford honour code, full solutions are not provided in
