@@ -13,7 +13,9 @@
 
 1. In the spirit of the Stanford honour code, full solutions are not provided in
    this repository. Rather, only code *solutions* are pushed - the rest is *just* algebra.
-   Therefore, this repository is designed to serve as a blueprint cf. a walk-through. Why would I do this to you? See Feynman's office blackboard...
+   Therefore, this repository is designed to serve as a blueprint cf. a walk-through.  
+   
+   Why would I do this to you? See Feynman's office blackboard...
 
 <p><img
   src="https://sylviecerise.files.wordpress.com/2010/02/feynman-blackboard.jpg"
