@@ -1,7 +1,9 @@
 # Important note: you do not have to modify this file for your homework.
 
-import util
+import matplotlib.pyplot as plt
 import numpy as np
+
+import util
 
 
 def calc_grad(X, Y, theta):
@@ -10,7 +12,7 @@ def calc_grad(X, Y, theta):
 
     margins = Y * X.dot(theta)
     probs = 1. / (1 + np.exp(margins))
-    grad = -(1./m) * (X.T.dot(probs * Y))
+    grad = -(1. / m) * (X.T.dot(probs * Y))
 
     return grad
 
@@ -27,6 +29,7 @@ def logistic_regression(X, Y):
         prev_theta = theta
         grad = calc_grad(X, Y, theta)
         theta = theta - learning_rate * grad
+        print(theta)
         if i % 10000 == 0:
             print('Finished %d iterations' % i)
         if np.linalg.norm(prev_theta - theta) < 1e-15:
@@ -38,11 +41,62 @@ def logistic_regression(X, Y):
 def main():
     print('==== Training model on data set A ====')
     Xa, Ya = util.load_csv('../data/ds1_a.csv', add_intercept=True)
-    logistic_regression(Xa, Ya)
+    # logistic_regression(Xa, Ya)
 
     print('\n==== Training model on data set B ====')
     Xb, Yb = util.load_csv('../data/ds1_b.csv', add_intercept=True)
-    logistic_regression(Xb, Yb)
+    # logistic_regression(Xb, Yb)
+
+    # Training for Xb, Yb is not converging as in Xa, Ya.
+    # Lets examine the data
+
+    # Each y is either {1, -1}
+    # Each x has x1, x2 and an x0=1 intercept
+    print("A:")
+    print(Xa.shape, Ya.shape)
+    print(Xa[0])
+    print(set(Ya))
+
+    Xa, Ya = util.load_csv('../data/ds1_a.csv', add_intercept=False)
+    x1 = Xa[:, 0]
+    x2 = Xa[:, 1]
+    plt.figure()
+    plt.scatter(x1[Ya == -1], x2[Ya == -1], color='red')
+    plt.scatter(x1[Ya == 1], x2[Ya == 1], color='blue')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.title("Xa")
+    plt.savefig("p01_lr_Xa")
+
+    print("B:")
+    print(Xb.shape, Yb.shape)
+    print(Xb[0])
+    print(set(Yb))
+
+    Xb, Yb = util.load_csv('../data/ds1_b.csv', add_intercept=False)
+    x1 = Xb[:, 0]
+    x2 = Xb[:, 1]
+    plt.figure()
+    plt.scatter(x1[Yb == -1], x2[Yb == -1], color='red')
+    plt.scatter(x1[Yb == 1], x2[Yb == 1], color='blue')
+    plt.xlabel('x1')
+    plt.ylabel('x2')
+    plt.title("Xb")
+    plt.savefig("p01_lr_Xb")
+
+    # Note that Xb, Yb is linearly separable
+    # Hence logistic regression --> Heaviside
+    # (i.e., ||theta|| --> infinity)
+    # Therefore, does not converge.
+
+    # Adding regularisation to penalise excessively large |theta|
+    # will force convergence
+
+    # Other suggestions will not help.
+
+    # Alternatively, instead of defining convergence wrt theta, we could
+    # define convergence wrt a loss function that would not improve
+    # once all cases have been separated.
 
 
 if __name__ == '__main__':

@@ -1,7 +1,8 @@
 python-language-server
 epc
+importmagic
 yapf
-autoflake
+pyflakes
 isort
 
 matplotlib
